@@ -6,7 +6,12 @@ class ImageGalleryItem extends React.Component {
     const { webformat, alt } = this.props;
     return (
       <li className={css.ImageGalleryItem}>
-        <img className={css.ImageGalleryItemImage} src={webformat} alt={alt} />
+        <img
+          className={css.ImageGalleryItemImage}
+          src={webformat}
+          alt={alt}
+          loading="lazy"
+        />
       </li>
     );
   }
