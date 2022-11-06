@@ -1,11 +1,15 @@
+import React from 'react';
 import css from '../ImageGalleryItem/ImageGalleryItem.module.css';
 
-const ImageGalleryItem = () => {
-  return (
-    <li className={css.ImageGalleryItem}>
-      <img className={css.ImageGalleryItemImage} src="" alt="" />
-    </li>
-  );
-};
+class ImageGalleryItem extends React.Component {
+  render() {
+    const { webformat, alt } = this.props;
+    return (
+      <li className={css.ImageGalleryItem}>
+        <img className={css.ImageGalleryItemImage} src={webformat} alt={alt} />
+      </li>
+    );
+  }
+}
 
 export default ImageGalleryItem;

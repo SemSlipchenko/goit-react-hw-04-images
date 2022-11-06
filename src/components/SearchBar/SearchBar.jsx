@@ -9,7 +9,7 @@ class SearchBar extends React.Component {
     event.preventDefault();
 
     if (this.state.value.trim() === '') {
-      return alert('Введите данные в строку поиска!');
+      return alert('Enter the data in the search bar!');
     }
     this.props.onSubmit(this.state.value);
     this.setState({ value: '' });
