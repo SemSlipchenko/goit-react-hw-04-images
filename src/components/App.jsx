@@ -1,5 +1,5 @@
 import React from 'react';
-import { RotatingLines } from 'react-loader-spinner';
+import Loader from './Loader/Loader';
 import css from '../components/App.module.css';
 import SearchBar from './SearchBar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -48,17 +48,7 @@ class App extends React.Component {
     return (
       <div className={css.App}>
         <SearchBar onSubmit={this.onSubmit} />
-        <Container>
-          {isLoading && (
-            <RotatingLines
-              strokeColor="grey"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="300"
-              visible={true}
-            />
-          )}
-        </Container>
+        <Container>{isLoading && <Loader />}</Container>
         <ImageGallery images={data} />
         <Container>
           {data && data.length < total && <Button onClick={this.loadMore} />}
