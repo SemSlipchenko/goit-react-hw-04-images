@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 const KEY = '30149024-203e7bcb772de078758336c7f';
 const URL = 'https://pixabay.com/api/';
 
@@ -16,7 +17,9 @@ const fetchImages = async (value, page) => {
 
   if (response.data.total === 0) {
     return Promise.reject(
-      new Error(`Something went wrong, there are no pictures like ${value}`)
+      Notiflix.Notify.failure(
+        `Sorry, we couldn't find the images ${value} you requested, try something else.`
+      )
     );
   } else {
     const total = response.data.total;
