@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/goit-react-hw-04-images/static/css/main.4b3b004d.css",
+    "main.js": "/goit-react-hw-04-images/static/js/main.2037d761.js",
+    "static/media/emyller-magnifying-glass.svg": "/goit-react-hw-04-images/static/media/emyller-magnifying-glass.7879e8266ee721a7f6c1.svg",
+    "index.html": "/goit-react-hw-04-images/index.html",
+    "main.4b3b004d.css.map": "/goit-react-hw-04-images/static/css/main.4b3b004d.css.map",
+    "main.2037d761.js.map": "/goit-react-hw-04-images/static/js/main.2037d761.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4b3b004d.css",
+    "static/js/main.2037d761.js"
+  ]
+}
