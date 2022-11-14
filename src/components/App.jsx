@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import Loader from './Loader/Loader';
 import css from '../components/App.module.css';
 import SearchBar from './SearchBar/SearchBar';
@@ -7,55 +7,54 @@ import fetchImages from './Api/Api';
 import Container from './Container/Container';
 import Button from './Button/Button';
 
-class App extends React.Component {
-  state = {
-    value: '',
-    data: [],
-    error: null,
-    isLoading: false,
-    page: 1,
-    total: 0,
-  };
+const App = () => {
+  const [value, setValue] = useState('');
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
-  async componentDidUpdate(_, prevState) {
-    if (
-      prevState.value !== this.state.value ||
-      prevState.page !== this.state.page
-    ) {
-      this.setState({ isLoading: true });
+  useEffect(() => {
+    if (!value) {
+      return;
+    }
+
+    async function getImages() {
+      setIsLoading(true);
       try {
-        const images = await fetchImages(this.state.value, this.state.page);
-        this.setState(prevState => ({
-          data: [...prevState.data, ...images.hits],
-          total: images.total,
-        }));
+        const images = await fetchImages(value, page);
+        setData(prevState => [...prevState, ...images.hits]);
+        setTotal(images.total);
       } catch (error) {
-        this.setState({ error });
+        console.error(error);
       } finally {
-        this.setState({ isLoading: false });
+        setIsLoading(false);
       }
     }
-  }
-  onSubmit = value => {
-    this.setState({ value, data: [], page: 1, total: 0 });
+    getImages();
+  }, [value, page]);
+
+  const onSubmit = value => {
+    setValue(value);
+    setData([]);
+    setPage(1);
+    setTotal(0);
   };
 
-  loadMore = () => {
-    this.setState(prevState => ({ page: prevState.page + 1 }));
+  const loadMore = () => {
+    setPage(prevState => prevState + 1);
   };
-  render() {
-    const { data, total, isLoading } = this.state;
-    return (
-      <div className={css.App}>
-        <SearchBar onSubmit={this.onSubmit} />
-        <Container>{isLoading && <Loader />}</Container>
-        <ImageGallery images={data} />
-        <Container>
-          {data && data.length < total && <Button onClick={this.loadMore} />}
-        </Container>
-      </div>
-    );
-  }
-}
+
+  return (
+    <div className={css.App}>
+      <SearchBar onSubmit={onSubmit} />
+      <Container>{isLoading && <Loader />}</Container>
+      <ImageGallery images={data} />
+      <Container>
+        {data && data.length < total && <Button onClick={loadMore} />}
+      </Container>
+    </div>
+  );
+};
 
 export default App;
